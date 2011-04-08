@@ -1,0 +1,2 @@
+class FmaController < ApplicationController
+end
