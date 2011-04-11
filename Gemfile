@@ -29,3 +29,4 @@ gem 'nokogiri'
 #   gem 'webrat'
 # end
 gem 'curb'
+gem 'haml'
