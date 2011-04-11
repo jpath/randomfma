@@ -15,6 +15,4 @@ class GenreController < ApplicationController
     "Soul-R&B",
     "Spoken"]
 
-  def index
-  end
 end
