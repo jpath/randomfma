@@ -5,3 +5,4 @@ tmp/**/*
 *.swp
 *.lock
 .vimprojects
+public/stylesheets/*.css
