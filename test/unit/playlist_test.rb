@@ -13,4 +13,7 @@ class PlaylistTest < ActiveSupport::TestCase
     assert_equal  "http://freemusicarchive.org/api/get/tracks.xml?genre_handle=Blues",@pl.api_url
   end
 
+  test "Playlist should generate a list of track urls" do
+    assert_instance_of Array, @pl.generate
+  end
 end
