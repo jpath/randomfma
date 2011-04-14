@@ -1,6 +1,8 @@
 class PlaylistsController < ApplicationController
-  def new
-    pl = Playlist.create :genre_handle => params[:genre_handle]
-    pl.generate 
+  def create
+    #@pl = Playlist.create :genre_handle => params[:genre_handle]
+    @pl = Playlist.create :genre_handle => params[:genre_handle], :limit => params[:limit]
+    @pl.generate 
+    redirect_to playlist_path(:id => @pl.id)
   end
 end

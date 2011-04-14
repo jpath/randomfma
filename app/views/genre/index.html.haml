@@ -2,4 +2,4 @@
   %p Select a genre from the list below, and let randomfma generate a playlist for you from the fabulous Free Music Archive!
   #genre-list
     - GenreController::Genres.each do |g|
-      %p= link_to g, new_playlist_path(:genre_handle => g)
+      %p= link_to g, playlists_path({:genre_handle => g}), {:method => "post"}
