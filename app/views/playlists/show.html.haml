@@ -1,0 +1,4 @@
+#content
+  = @pl.track_urls.zip(@pl.track_titles) do |url, title|
+    %a(:href = url) 
+      = title
