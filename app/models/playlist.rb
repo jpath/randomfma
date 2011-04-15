@@ -1,6 +1,7 @@
 class Playlist < ActiveRecord::Base
 
   serialize :track_urls
+  serialize :track_titles
 
   FmaApiUrl = "http://freemusicarchive.org/api/get/tracks.xml"
 
