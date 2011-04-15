@@ -17,6 +17,7 @@ class PlaylistsControllerTest < ActionController::TestCase
     mock(Playlist).find(1) {@pl}
     get :show, :id => 1
     assert_select "a", @pl.track_titles[0]
+    assert_select "a[href=#{@pl.track_urls[0]}]" 
   end
 
 end
