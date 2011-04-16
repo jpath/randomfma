@@ -9,6 +9,7 @@ class Playlist < ActiveRecord::Base
     xml_doc = Nokogiri::XML(tracks_xml)
     self.track_urls = xml_doc.xpath("//track_url").collect {|node| node.content} 
     self.track_titles = xml_doc.xpath("//track_title").collect {|node| node.content} 
+    self.track_ids = xml_doc.xpath("//track_id").collect {|node| node.content} 
     save
   end
 

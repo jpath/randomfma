@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110413164328) do
+ActiveRecord::Schema.define(:version => 20110415234636) do
 
   create_table "playlists", :force => true do |t|
     t.string  "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110413164328) do
     t.text    "track_urls"
     t.integer "limit"
     t.text    "track_titles"
+    t.text    "track_ids"
   end
 
 end

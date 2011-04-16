@@ -3,6 +3,7 @@ require 'test_helper'
 class PlaylistTest < ActiveSupport::TestCase
   def setup
     @pl = Playlist.new :genre_handle => "Blues",:limit => 1
+    stub(@pl).tracks_xml {FakeXml}
   end
 
   test "Playlistmaker should generate a playlist \
@@ -18,14 +19,23 @@ class PlaylistTest < ActiveSupport::TestCase
     @pl.generate
     assert_instance_of Array, @pl.track_urls 
     assert_equal 1, @pl.track_urls.size
+    assert_equal  "http://freemusicarchive.org/music/Pussyfinger/Chew_And_Swallow/_1347", 
+      @pl.track_urls[0]
   end
 
   test "Playlist should generate a list of track names" do
     @pl.generate
     assert_instance_of Array, @pl.track_titles 
     assert_equal 1, @pl.track_titles.size
+    assert_equal "!@#?!", @pl.track_titles[0]
   end
 
+  test "Playlist should generate a list of track ids" do
+    @pl.generate
+    assert_instance_of Array, @pl.track_ids 
+    assert_equal 1, @pl.track_ids.size
+    assert_equal "14636", @pl.track_ids[0]
+  end
 
 # Why do ruby heredocs never fucking work?
   FakeXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
