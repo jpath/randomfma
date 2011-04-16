@@ -38,8 +38,7 @@ class PlaylistTest < ActiveSupport::TestCase
   end
 
   test "Playlist should generate player embed code for a track, given it's id" do
-    @pl.generate
-    assert_equal FakeEmbedHtml, @pl.embedded_player_for_track("14636")
+    assert_equal FakeEmbedHtml, Playlist.embedded_player_for_track("14636")
   end
 
   FakeEmbedHtml = Playlist::EmbedHtml % ["14636", "14636"]

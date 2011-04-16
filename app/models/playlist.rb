@@ -28,7 +28,7 @@ class Playlist < ActiveRecord::Base
     end
     url
   end
-  def embedded_player_for_track(id)
+  def self.embedded_player_for_track(id)
     EmbedHtml % [id, id]
   end
 end
