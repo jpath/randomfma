@@ -1,4 +1,6 @@
 Randomfma::Application.routes.draw do
+  get "tracks/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
