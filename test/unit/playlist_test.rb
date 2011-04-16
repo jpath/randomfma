@@ -37,7 +37,12 @@ class PlaylistTest < ActiveSupport::TestCase
     assert_equal "14636", @pl.track_ids[0]
   end
 
-# Why do ruby heredocs never fucking work?
+  test "Playlist should generate player embed code for a track, given it's id" do
+    @pl.generate
+    assert_equal FakeEmbedHtml, @pl.embedded_player_for_track("14636")
+  end
+
+  FakeEmbedHtml = Playlist::EmbedHtml % ["14636", "14636"]
   FakeXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <data>
   <title>Free Music Archive - Tracks</title>

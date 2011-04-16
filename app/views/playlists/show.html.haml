@@ -1,4 +1,6 @@
 #content
-  = @pl.track_urls.zip(@pl.track_titles, @pl.track_ids) do |url, title, id|
-    %a(href=url id="track-link-#{id}") 
-      = title
+  #track-list
+    = @pl.track_urls.zip(@pl.track_titles, @pl.track_ids) do |url, title, id|
+      %a(href=url class="track-link" id="track-link-#{id}") 
+        = title
+      %br

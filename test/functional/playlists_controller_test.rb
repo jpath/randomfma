@@ -29,5 +29,9 @@ class PlaylistsControllerTest < ActionController::TestCase
     get :show, :id => 1
     assert_select "a[id=track-link-1]" 
   end
+  test "links in list have a class attribute" do 
+    get :show, :id => 1
+    assert_select "a[class=track-link]" 
+  end
 
 end
