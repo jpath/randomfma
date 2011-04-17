@@ -3,7 +3,8 @@ require 'test_helper'
 class PlaylistTest < ActiveSupport::TestCase
   def setup
     @pl = Playlist.new :genre_handle => "Blues",:limit => 1
-    stub(@pl).tracks_xml {FakeXml}
+    @doc = stub(Object.new).body_str {FakeXml}
+    stub(Curl::Easy).perform(@pl.api_url) {@doc}
   end
 
   test "Playlistmaker should generate a playlist \
@@ -39,6 +40,10 @@ class PlaylistTest < ActiveSupport::TestCase
 
   test "Playlist should generate player embed code for a track, given it's id" do
     assert_equal FakeEmbedHtml, Playlist.embedded_player_for_track("14636")
+  end
+
+  test "Playlist should get the total number of pages for a genre" do
+    assert_equal 6285, @pl.pages_for_genre
   end
 
   FakeEmbedHtml = Playlist::EmbedHtml % ["14636", "14636"]
