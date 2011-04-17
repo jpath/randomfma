@@ -9,6 +9,7 @@ class Playlist < ActiveRecord::Base
 
   EmbedHtml = %(<object width="300" height="50"><param name="movie" value="http://freemusicarchive.org/swf/trackplayer.swf"/><param name="flashvars" value="track=http://freemusicarchive.org/services/playlists/embed/track/%s.xml"/><param name="allowscriptaccess" value="sameDomain"/><embed type="application/x-shockwave-flash" src="http://freemusicarchive.org/swf/trackplayer.swf" width="300" height="50" flashvars="track=http://freemusicarchive.org/services/playlists/embed/track/%s.xml" allowscriptaccess="sameDomain" /></object>) 
 
+
   def generate
     xml_doc = Nokogiri::XML(tracks_xml)
     self.track_urls = xml_doc.xpath("//track_url").collect {|node| node.content} 
@@ -21,6 +22,10 @@ class Playlist < ActiveRecord::Base
     Curl::Easy.perform(api_url).body_str
   end
 
+  def limit
+    5
+  end
+
   def api_url
     url = "#{FmaApiUrl}?genre_handle=#{genre_handle}"  
     if limit 
@@ -28,6 +33,7 @@ class Playlist < ActiveRecord::Base
     end
     url
   end
+
   def self.embedded_player_for_track(id)
     EmbedHtml % [id, id]
   end

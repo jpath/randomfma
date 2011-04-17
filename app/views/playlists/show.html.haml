@@ -3,4 +3,5 @@
     = @pl.track_urls.zip(@pl.track_titles, @pl.track_ids) do |url, title, id|
       %a(href=url class="track-link" id="track-link-#{id}") 
         = title
+      != Playlist.embedded_player_for_track(id)
       %br
