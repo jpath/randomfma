@@ -4,10 +4,9 @@
 var track_window = {};
 $().ready(function() {
     if($(".track-link").size() > 0) {
-
+// TODO: 
       $(".track-link").each(function(i) {
-        track_window = window.open("/tracks/" +$(this).attr("id").match(/\d+$/));
-        console.log(track_window.document);
+//        track_window = window.open("/tracks/" +$(this).attr("id").match(/\d+$/));
         });
       }
       }); 
