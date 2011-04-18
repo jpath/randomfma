@@ -4,7 +4,7 @@ class PlaylistTest < ActiveSupport::TestCase
   def setup
     @pl = Playlist.new :genre_handle => "Blues",:limit => 1
     @doc = stub(Object.new).body_str {FakeXml}
-    stub(Curl::Easy).perform(@pl.api_url) {@doc}
+    stub(Curl::Easy).perform(@pl.api_url({:limit => 1})) {@doc}
   end
 
   test "Playlistmaker should generate a playlist \
@@ -13,10 +13,18 @@ class PlaylistTest < ActiveSupport::TestCase
   end
 
   test "Playlist should know the FMA Api URL" do
-    assert_equal  "http://freemusicarchive.org/api/get/tracks.xml?genre_handle=Blues&limit=1",@pl.api_url
+    assert_equal  "http://freemusicarchive.org/api/get/tracks.xml?genre_handle=Blues&limit=1",@pl.api_url(:limit => 1)
+  end
+
+  def setup_for_generator_test
+    stub(Kernel).rand(100) {3}
+    stub(@pl).limit {1}
+    stub(@pl).pages_for_genre {100}
+    mock(Curl::Easy).perform.with_any_args {@doc}
   end
 
   test "Playlist should generate a list of track urls" do
+    setup_for_generator_test
     @pl.generate
     assert_instance_of Array, @pl.track_urls 
     assert_equal 1, @pl.track_urls.size
@@ -25,6 +33,7 @@ class PlaylistTest < ActiveSupport::TestCase
   end
 
   test "Playlist should generate a list of track names" do
+    setup_for_generator_test
     @pl.generate
     assert_instance_of Array, @pl.track_titles 
     assert_equal 1, @pl.track_titles.size
@@ -32,6 +41,7 @@ class PlaylistTest < ActiveSupport::TestCase
   end
 
   test "Playlist should generate a list of track ids" do
+    setup_for_generator_test
     @pl.generate
     assert_instance_of Array, @pl.track_ids 
     assert_equal 1, @pl.track_ids.size
@@ -44,6 +54,11 @@ class PlaylistTest < ActiveSupport::TestCase
 
   test "Playlist should get the total number of pages for a genre" do
     assert_equal 6285, @pl.pages_for_genre
+  end
+
+  test "API URL generator should add arbitrary params to query string" do
+    assert_equal  "http://freemusicarchive.org/api/get/tracks.xml?genre_handle=Blues&page=4&limit=1",
+      @pl.api_url({:limit => 1, :page => 4})
   end
 
   FakeEmbedHtml = Playlist::EmbedHtml % ["14636", "14636"]
