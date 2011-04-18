@@ -1,6 +1,6 @@
 Sass::Plugin.options.merge!(
-  template_location: 'public/stylesheets/sass',
-  css_location: 'tmp/stylesheets'
+  :template_location => 'public/stylesheets/sass',
+  :css_location => 'tmp/stylesheets'
 )
 
 Rails.configuration.middleware.delete('Sass::Plugin::Rack')
