@@ -23,10 +23,8 @@ class Playlist < ActiveRecord::Base
     limit.times do
       page_numbers << rand(num_pages)
     end
-
     page_numbers.each do |num|  
       doc = xml_doc(tracks_xml(true, {:limit => 1, :page => num}))
-      debugger
       self.track_urls << doc.xpath("//track_url")[0].content 
       self.track_titles << doc.xpath("//track_title")[0].content 
       self.track_ids << doc.xpath("//track_id")[0].content 
@@ -43,7 +41,7 @@ class Playlist < ActiveRecord::Base
   end
 
   def xml_doc xmlstr
-    @xml_doc || @xml_doc = Nokogiri::XML(xmlstr)
+    @xml_doc = Nokogiri::XML(xmlstr)
   end
 
   def api_url opts = {}
