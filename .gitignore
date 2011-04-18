@@ -3,6 +3,5 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 *.swp
-*.lock
 .vimprojects
 public/stylesheets/*.css
