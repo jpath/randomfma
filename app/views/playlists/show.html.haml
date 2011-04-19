@@ -1,7 +1,10 @@
 #content
+  %h1= "Here is your randomly selected #{@pl.genre_handle} playlist:"
   #track-list
     = @pl.track_urls.zip(@pl.track_titles, @pl.track_ids) do |url, title, id|
-      %a(href=url class="track-link" id="track-link-#{id}") 
-        = title
-      != Playlist.embedded_player_for_track(id)
-      %br
+      %div
+        #track-data
+          %a(href=url class="track-link" id="track-link-#{id}") 
+            = title
+        #track-player
+          != Playlist.embedded_player_for_track(id)
