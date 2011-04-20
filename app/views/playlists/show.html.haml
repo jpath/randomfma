@@ -6,5 +6,11 @@
         #track-data
           %a(href="#{t.url}" class="track-link" id="track-link-#{t.fma_id}") 
             = t.title
+          by 
+          %a(href="#{t.artist_url}") 
+            = t.artist
+          from 
+          %a(href="#{t.album_url}") 
+            = t.album
         #track-player
           != Playlist.embedded_player_for_track(t.fma_id)
