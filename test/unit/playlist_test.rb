@@ -40,10 +40,34 @@ class PlaylistTest < ActiveSupport::TestCase
     assert_equal "!@#?!", @pl.tracks.first.title
   end
 
-  test "Playlist should generate a list of track ids" do
+  test "Playlist should generate a list of fma track ids" do
     setup_for_generator_test
     @pl.generate
     assert_equal "14636", @pl.tracks.first.fma_id
+  end
+
+  test "Playlist should store the album url per track" do
+    setup_for_generator_test
+    @pl.generate
+    assert_equal "http://freemusicarchive.org/music/Pussyfinger/Chew_And_Swallow/", @pl.tracks.first.album_url
+  end
+
+  test "Playlist should store the artist url per track" do
+    setup_for_generator_test
+    @pl.generate
+    assert_equal "http://freemusicarchive.org/music/Pussyfinger/", @pl.tracks.first.artist_url
+  end
+
+  test "Playlist should store the artist name per track" do
+    setup_for_generator_test
+    @pl.generate
+    assert_equal "Pussyfinger", @pl.tracks.first.artist
+  end
+
+  test "Playlist should store the album name per track" do
+    setup_for_generator_test
+    @pl.generate
+    assert_equal "Chew And Swallow", @pl.tracks.first.album
   end
 
   test "Playlist should generate player embed code for a track, given it's id" do

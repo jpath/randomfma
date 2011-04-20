@@ -24,6 +24,10 @@ class Playlist < ActiveRecord::Base
       doc = xml_doc(tracks_xml(true, {:limit => 1, :page => num}))
       tracks << (Track.new(:url => doc.xpath("//track_url")[0].content,
                            :title => doc.xpath("//track_title")[0].content,
+                           :artist_url => doc.xpath("//artist_url")[0].content,
+                           :album_url => doc.xpath("//album_url")[0].content,
+                           :album => doc.xpath("//album_title")[0].content,
+                           :artist => doc.xpath("//artist_name")[0].content,
                            :fma_id => doc.xpath("//track_id")[0].content ))
     end
     save
