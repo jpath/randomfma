@@ -23,29 +23,27 @@ class PlaylistTest < ActiveSupport::TestCase
     mock(Curl::Easy).perform.with_any_args {@doc}
   end
 
+  test "Playlist should have associated track(s)" do 
+    assert_respond_to(@pl, :tracks)
+  end
+
   test "Playlist should generate a list of track urls" do
     setup_for_generator_test
     @pl.generate
-    assert_instance_of Array, @pl.track_urls 
-    assert_equal 1, @pl.track_urls.size
     assert_equal  "http://freemusicarchive.org/music/Pussyfinger/Chew_And_Swallow/_1347", 
-      @pl.track_urls[0]
+      @pl.tracks.first.url
   end
 
   test "Playlist should generate a list of track names" do
     setup_for_generator_test
     @pl.generate
-    assert_instance_of Array, @pl.track_titles 
-    assert_equal 1, @pl.track_titles.size
-    assert_equal "!@#?!", @pl.track_titles[0]
+    assert_equal "!@#?!", @pl.tracks.first.title
   end
 
   test "Playlist should generate a list of track ids" do
     setup_for_generator_test
     @pl.generate
-    assert_instance_of Array, @pl.track_ids 
-    assert_equal 1, @pl.track_ids.size
-    assert_equal "14636", @pl.track_ids[0]
+    assert_equal "14636", @pl.tracks.first.fma_id
   end
 
   test "Playlist should generate player embed code for a track, given it's id" do

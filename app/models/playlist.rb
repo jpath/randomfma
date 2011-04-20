@@ -4,6 +4,7 @@ class Playlist < ActiveRecord::Base
   serialize :track_titles
   serialize :track_ids
 
+  has_many :tracks
   FmaApiUrl = "http://freemusicarchive.org/api/get/tracks.xml"
 
   EmbedHtml = %(<object width="300" height="50"><param name="movie" value="http://freemusicarchive.org/swf/trackplayer.swf"/><param name="flashvars" value="track=http://freemusicarchive.org/services/playlists/embed/track/%s.xml"/><param name="allowscriptaccess" value="sameDomain"/><embed type="application/x-shockwave-flash" src="http://freemusicarchive.org/swf/trackplayer.swf" width="300" height="50" flashvars="track=http://freemusicarchive.org/services/playlists/embed/track/%s.xml" allowscriptaccess="sameDomain" /></object>) 
@@ -14,10 +15,6 @@ class Playlist < ActiveRecord::Base
   end
 
   def generate
-    # TODO: track model
-    self.track_urls = []
-    self.track_titles = []
-    self.track_ids = []
     num_pages = pages_for_genre
     page_numbers = []
     limit.times do
@@ -25,9 +22,9 @@ class Playlist < ActiveRecord::Base
     end
     page_numbers.each do |num|  
       doc = xml_doc(tracks_xml(true, {:limit => 1, :page => num}))
-      self.track_urls << doc.xpath("//track_url")[0].content 
-      self.track_titles << doc.xpath("//track_title")[0].content 
-      self.track_ids << doc.xpath("//track_id")[0].content 
+      tracks << (Track.new(:url => doc.xpath("//track_url")[0].content,
+                           :title => doc.xpath("//track_title")[0].content,
+                           :fma_id => doc.xpath("//track_id")[0].content ))
     end
     save
   end

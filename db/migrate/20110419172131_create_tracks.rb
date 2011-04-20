@@ -6,7 +6,7 @@ class CreateTracks < ActiveRecord::Migration
       t.string :url
       t.string :album
       t.string :curator
-
+      t.string :fma_id
       t.timestamps
     end
   end
