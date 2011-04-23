@@ -14,3 +14,7 @@
             = t.album
         #track-player
           != Playlist.embedded_player_for_track(t.fma_id)
+  #link-to-more
+    = link_to "Get Five More", 
+      playlists_path(:genre_handle => @pl.genre_handle), 
+      {:method => "post"}

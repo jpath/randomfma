@@ -12,7 +12,7 @@ class PlaylistsControllerTest < ActionController::TestCase
     stub(Playlist).find(1) {@pl}
   end
 
-  test "the create action" do
+  test "the create action redirects to show the new playlist" do
     mock(Playlist).create(:genre_handle => "Rock", :limit => 1) {@pl}
     mock(@pl).generate
     post :create, :genre_handle => "Rock", :limit => 1
@@ -36,6 +36,12 @@ class PlaylistsControllerTest < ActionController::TestCase
     get :show, :id => 1
     assert_select "a", @pl.tracks.first.artist
     assert_select "a[href=#{@pl.tracks.first.artist_url}]" 
+  end
+
+  test "show action has button to generate another playlist" do
+    get :show, :id => 1
+    assert_select "a", "Get Five More"
+    assert_select "a[href=#{playlists_path(:genre_handle => 'Rock')}]" 
   end
 
   test "links in list have an id" do 
