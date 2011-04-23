@@ -1,5 +1,6 @@
 #content
-  %h1 Select a genre from the list below, and let randomfma generate a playlist for you from the fabulous Free Music Archive!
+  %h1 RandomFMA - Five from the Archive
+  %p!= "Select a genre from the list below, and let RandomFMA generate a playlist for you from the fabulous #{link_to('Free Music Archive!', 'http://freemusicarchive.org/')}"
   #genre-list
     - GenreController::Genres.each do |g|
       %p= link_to g, playlists_path({:genre_handle => g}), {:method => "post"}
