@@ -1,6 +1,8 @@
 #content
   %h1 RandomFMA - Five from the Archive
-  %p!= "Select a genre from the list below, and let RandomFMA generate a playlist for you from the fabulous #{link_to('Free Music Archive!', 'http://freemusicarchive.org/')}"
+  %p!= "Select a genre from the list below, and let RandomFMA generate a playlist for you from the fabulous #{link_to('Free Music Archive!', 'http://freemusicarchive.org/', :class => 'orange_link')}. "
   #genre-list
     - GenreController::Genres.each do |g|
       %p= link_to g, playlists_path({:genre_handle => g}), {:method => "post"}
+  %p (Coming soon...subgenres)
+  %p.footer [Developed by James Hughes || github || fma || twitter, i guess]
