@@ -1,5 +1,5 @@
 #content
-  %h1!= "Here is your randomly selected #{link_to(@pl.genre_handle, root_path)} playlist from the #{link_to('Free Music Archive', 'http://freemusicarchive.org/')}:"
+  %h1!= "Here is your randomly selected #{link_to(@pl.genre_handle, root_path, :title => "Switch Genre")} playlist from the #{link_to('Free Music Archive', 'http://freemusicarchive.org/')}:"
   #track-list
     - @pl.tracks.each do |t|
       %div
@@ -18,3 +18,4 @@
     = link_to "Get Five More", 
       playlists_path(:genre_handle => @pl.genre_handle), 
       {:method => "post"}
+  = render 'genre/footer'
