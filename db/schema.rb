@@ -10,15 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110420195648) do
+ActiveRecord::Schema.define(:version => 20110501162639) do
 
   create_table "playlists", :force => true do |t|
     t.string  "name"
     t.string  "genre_handle"
-    t.text    "track_urls"
     t.integer "limit"
-    t.text    "track_titles"
-    t.text    "track_ids"
   end
 
   create_table "tracks", :force => true do |t|
